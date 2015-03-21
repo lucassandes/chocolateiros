@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="col-sm-6">
-            <p>Chocolateiros - Ovos e bombons caseiros de qualidade.</p>
+            <p>Chocolateiros - Amor por Chocolates</p>
             <div class="hidden-xs">
             <p><strong>Fale Conosco:</strong><br/>
                 Luh Domênico //

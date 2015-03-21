@@ -30,6 +30,7 @@ $tradicional_peso_casca_select = $_POST["tradicional-peso-casca-select"];
 $tradicional_peso_recheado_select = $_POST["tradicional-peso-recheado-select"];
 $colher_peso_recheado_select = $_POST["colher-peso-recheado-select"];
 $quantidadeRecheio = $_POST["quantidadeRecheio"];
+
 $recheioA = $_POST["recheioA"];
 $recheioB = $_POST["recheioB"];
 $formato = $_POST["tipoFormato"];
@@ -133,11 +134,11 @@ function peso_preco($select, $tipo)
 
                 //echo (' - Recheado ( metade '.$recheioA.' e metade'.$recheioB .')' );
 
-                if($quantidadeRecheio) {
+                if($quantidadeRecheio == 1) {
                     $mensagem .= ' - Recheado ( recheio de ' . $recheioA . ')';
                 }
                 else {
-                    $mensagem .= ' - Recheado ( metade ' . $recheioA . ' e metade' . $recheioB . ')';
+                    $mensagem .= ' - Recheado meio a meio ( metade ' . $recheioA . ' e metade' . $recheioB . ')';
                 }
 
                 if ($tradicional_peso_recheado_select > 1 && $formato == 1) {
