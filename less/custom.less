@@ -1,7 +1,86 @@
 @background-color: #d3c1af;
-@dark-brown:       #371d1d;
+@dark-brown: #371d1d;
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+/*------------------------------------------------ -/*/
 
 body {
   background: @background-color;
-  color:@dark-brown;
+  //background-image: url("../imgs/bg.jpg") repeat-x;
+  color: @dark-brown;
+
+}
+
+.pagina-inicial {
+  h1, h2, h3 {
+    margin-left: 15px;
+  }
+}
+
+.social {
+  width: 90px;
+  margin: 0 auto;
+  img {
+    float: left;
+    width: 40px;
+  }
+}
+
+.footer {
+  border-top: 1px solid darken(@background-color, 10%);
+  margin-top: 40px;
+  padding-top: 20px;
+  background: @dark-brown;
+  color: @background-color;
+  a {
+    color: @background-color;
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn, .btn-group {
+    width: 100%;
+  }
+
+}
+
+@media (min-width: @screen-sm-min) {
+  .half {
+    width: 750px;
+  }
+  
+  .enviar {
+    max-width: 600px;
+    h2,h3 {
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 30px;
+    }
+  }
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 110px;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    min-height: 110px;
+
+  }
+
+  .margin-bootom {
+    margin-bottom: 30px;
+  }
 }

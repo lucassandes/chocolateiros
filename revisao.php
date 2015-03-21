@@ -12,21 +12,34 @@
 <?php
 $nome = $_POST["nome"];
 $email = $_POST["email"];
+$tel = $_POST["tel"];
+$indicacao = $_POST["indicacao"];
+
+
+if (isset($_POST['checkbox'])) {
+    $checkbox = 1;
+} else {
+    $checkbox = 0;
+}
+
+
 $tipoOvo = $_POST["tipoOvo"];
 $chocolate = $_POST["chocolate"];
 $tipoOvoRecheio = $_POST["tipoOvoRecheio"];
 $tradicional_peso_casca_select = $_POST["tradicional-peso-casca-select"];
 $tradicional_peso_recheado_select = $_POST["tradicional-peso-recheado-select"];
 $colher_peso_recheado_select = $_POST["colher-peso-recheado-select"];
+$quantidadeRecheio = $_POST["quantidadeRecheio"];
 $recheioA = $_POST["recheioA"];
 $recheioB = $_POST["recheioB"];
 $formato = $_POST["tipoFormato"];
 
-function peso_preco($select, $tipo) {
-    if ($tipo == 0 ) {
-        switch($select){
+function peso_preco($select, $tipo)
+{
+    if ($tipo == 0) {
+        switch ($select) {
             case 0:
-                $peso_preco = array('100g', 7.00) ;
+                $peso_preco = array('100g', 7.00);
                 break;
             case 1:
                 $peso_preco = array('250g', 15.00);
@@ -42,11 +55,10 @@ function peso_preco($select, $tipo) {
                 break;
 
         }
-    }
-    else if ($tipo == 1) {
-        switch($select){
+    } else if ($tipo == 1) {
+        switch ($select) {
             case 0:
-                $peso_preco = array('100g', 10.00) ;
+                $peso_preco = array('100g', 10.00);
                 break;
             case 1:
                 $peso_preco = array('250g', 18.00);
@@ -63,11 +75,10 @@ function peso_preco($select, $tipo) {
 
         }
 
-    }
-    else {
-        switch($select){
+    } else {
+        switch ($select) {
             case 0:
-                $peso_preco = array('90g', 6.00) ;
+                $peso_preco = array('90g', 6.00);
                 break;
             case 1:
                 $peso_preco = array('250g', 15.00);
@@ -89,142 +100,130 @@ function peso_preco($select, $tipo) {
 }
 
 
-
 ?>
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+<?php include 'header.php'; ?>
+
+<div class="container half">
 
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <h1 class="text-center">Resumo do Pedido</h1>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <h3>Olá <?php echo $nome ?>!</h3>
 
-    <!-- Custom styles for this template -->
-    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <p>Confira seu pedido antes de nos enviá-lo.</p>
+    <h4>Informações de contato:</h4>
 
+    <p><strong>E-mail:</strong> <?php echo $email; ?><br/>
+        <strong>Tel/WhatsApp:</strong><?php echo $tel; ?>
+    </p>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
-    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-
-<div class="container">
-    <img src="imgs/logo.png" class="center-block img-responsive"/>
-
-    <h1>Resumo do Pedido</h1>
     <p>
-    <?php
-    if ($tipoOvo == 0) {
-        //echo ('Ovo Tradicional de '.$chocolate.' ');
-        $mensagem = 'Ovo <strong>Tradicional</strong> de '.$chocolate.' ';
+        <?php
+        if ($tipoOvo == 0) {
+            //echo ('Ovo Tradicional de '.$chocolate.' ');
+            $mensagem = 'Ovo <strong>Tradicional</strong> de ' . $chocolate . ' ';
 
 
-        if($tipoOvoRecheio) {
+            if ($tipoOvoRecheio) {
 
-            $peso_preco = peso_preco($tradicional_peso_recheado_select, 1);
-            //echo ('- '. $peso_preco[0]);
-            $mensagem .= '- '. $peso_preco[0];
+                $peso_preco = peso_preco($tradicional_peso_recheado_select, 1);
+                //echo ('- '. $peso_preco[0]);
+                $mensagem .= '- ' . $peso_preco[0];
 
-            //echo (' - Recheado ( metade '.$recheioA.' e metade'.$recheioB .')' );
-            $mensagem .= ' - Recheado ( metade '.$recheioA.' e metade'.$recheioB .')';
+                //echo (' - Recheado ( metade '.$recheioA.' e metade'.$recheioB .')' );
 
-            if ($tradicional_peso_recheado_select > 1 && $formato == 1 ) {
-                //echo (' - FORMATO CORAÇÃO ');
-                $mensagem .= ' - FORMATO CORAÇÃO ';
+                if($quantidadeRecheio) {
+                    $mensagem .= ' - Recheado ( recheio de ' . $recheioA . ')';
+                }
+                else {
+                    $mensagem .= ' - Recheado ( metade ' . $recheioA . ' e metade' . $recheioB . ')';
+                }
+
+                if ($tradicional_peso_recheado_select > 1 && $formato == 1) {
+                    //echo (' - FORMATO CORAÇÃO ');
+                    $mensagem .= ' - FORMATO CORAÇÃO ';
+                } else {
+                    // echo(' - FORMATO TRADICIONAL ');
+                    $mensagem .= ' - FORMATO TRADICIONAL ';
+                }
+                //echo ('- R$ '. $peso_preco[1]);
+                $peso_preco[1] = sprintf('%0.2f', $peso_preco[1]);
+                $mensagem .= '- R$ ' . $peso_preco[1];
+
+
+            } else {
+
+                $peso_preco = peso_preco($tradicional_peso_casca_select, 0);
+
+                $peso_preco[1] = sprintf('%0.2f', $peso_preco[1]);
+                //echo ('- '. $peso_preco[0]);
+                //echo ('- Casca ');
+                //echo ('- R$ '. $peso_preco[1]);
+                $mensagem .= '- ' . $peso_preco[0];
+                $mensagem .= '- Casca ';
+                $mensagem .= '- R$ ' . $peso_preco[1];
             }
-            else {
-               // echo(' - FORMATO TRADICIONAL ');
-                $mensagem .=' - FORMATO TRADICIONAL ';
-            }
-            //echo ('- R$ '. $peso_preco[1]);
-            $mensagem .='- R$ '. $peso_preco[1];
 
 
+        } else {
+            //echo ('Ovo Colher de '.$chocolate.' ');
+            $mensagem = 'Ovo <strong>Colher</strong> de ' . $chocolate . ' ';
+            $peso_preco = peso_preco($colher_peso_recheado_select, 3);
+            $peso_preco[1] = sprintf('%0.2f', $peso_preco[1]);
+            //echo (' -  '. $peso_preco[0]);
+            $mensagem .= ' -  ' . $peso_preco[0];
+            $mensagem .= ' - ( recheio de ' . $recheioA . ')';
+            $mensagem .= ' - R$ ' . $peso_preco[1];
+            //echo (' - ( metade '.$recheioA.' e metade '.$recheioB.')' );
+            //echo (' - R$ '. $peso_preco[1]);
 
         }
-        else {
-
-            peso_preco($tradicional_peso_casca_select, 0);
-            //echo ('- '. $peso_preco[0]);
-            //echo ('- Casca ');
-            //echo ('- R$ '. $peso_preco[1]);
-            $mensagem .='- '. $peso_preco[0];
-            $mensagem .='- Casca ';
-            $mensagem .='- R$ '. $peso_preco[1];
-        }
 
 
-    }
-    else {
-        //echo ('Ovo Colher de '.$chocolate.' ');
-        $mensagem ='Ovo Colher de '.$chocolate.' ';
-        $peso_preco = peso_preco($colher_peso_recheado_select, 3);
-        //echo (' -  '. $peso_preco[0]);
-        $mensagem .=' -  '. $peso_preco[0];
-        $mensagem .=' - ( metade '.$recheioA.' e metade '.$recheioB.')' ;
-        $mensagem .=' - R$ '. $peso_preco[1];
-        //echo (' - ( metade '.$recheioA.' e metade '.$recheioB.')' );
-        //echo (' - R$ '. $peso_preco[1]);
 
-    }
 
-    echo $mensagem;
-    ?>
-        <div class="clear"></div>
-        <button type="button" class="btn btn-default btn-lg"  onclick="goBack()">
+        ?>
+    <div class="alert alert-success" role="alert">
+
+        <?php echo $mensagem;?>
+    </div>
+
+    <div class="clear"></div>
+    <div class="col-xs-6">
+        <button type="button" class="btn btn-default btn-lg  btn-block" onclick="goBack()">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Corrigir
         </button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
+    <div class="col-xs-6">
 
-        <script>
-            function goBack() {
-                window.history.back()
-            }
-        </script>
+    <form action="enviar.php" method="post">
+        <input type="hidden" name="act" value="run">
+        <input type="hidden" name="nome" value="<?php echo $nome ?>">
+        <input type="hidden" name="email" value="<?php echo $email ?>">
+        <input type="hidden" name="tel" value="<?php echo $tel ?>">
+        <input type="hidden" name="checkbox" value="<?php echo $checkbox ?>">
+        <input type="hidden" name="indicacao" value="<?php echo $indicacao ?>">
 
+        <input type="hidden" name="mensagem" value="<?php echo $mensagem ?>">
+        <button type="submit" class="btn btn-default btn-lg pull-right btn-block"><span
+                class="glyphicon glyphicon-shopping-cart"
+                aria-hidden="true"></span> Enviar
+        </button>
+    </form>
 
-
-        <form action="enviar.php" method="post">
-            <input type="hidden" name="act" value="run">
-            <input type="hidden" name="nome" value="<?php echo $nome ?>">
-            <input type="hidden" name="email" value="<?php echo $email ?>">
-            <input type="hidden" name="mensagem" value="<?php echo $mensagem ?>">
-            <input type="submit" value="Run me now!">
-        </form>
+    </div>
     <?php
-   // }
+    // }
     ?>
 
     </p>
 </div>
 <!-- /container -->
 
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-
-<!-- Bootstrap core JavaScript
-  ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="js/ie10-viewport-bug-workaround.js"></script>
-<script src="js/showhide.js"></script>
-
-</body>
-</html>
+<?php include 'footer.php';

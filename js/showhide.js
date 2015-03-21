@@ -27,9 +27,14 @@ $(document).ready(function () {
         toggleFields();
     });
 
-    $("#tradicional-peso-casca").change(function () {
+    $("#tradicional-peso-casca-select").change(function () {
         toggleFields();
     });
+
+    $("#quantidadeRecheio").change(function () {
+        toggleFields();
+    });
+
 
 });
 //this toggles the visibility of our parent permission fields depending on the current selected value of the underAge field
@@ -50,9 +55,26 @@ function toggleFields() {
             $("#tradicional-recheioB").show();
             $('#tradicional-peso-casca').hide();
             $('#tradicional-peso-recheado').show();
+            $("#form-quantidade-recheio").show();
+            $("#tipoRecheioLabel").text("Qual é o primeiro recheio?");
+
+            //quantidade recheios
+            if($("#quantidadeRecheio").val() == 2 ) {
+                $("#tipoRecheioLabel").text("Qual é o primeiro recheio?");
+                $('#tradicional-recheioB').show();
+            }
+
+            else {
+                $('#tradicional-recheioB').hide();
+                $("#tipoRecheioLabel").text("Escolha o Recheio");
+            }
+
+
         }
 
+        //casca form-quantidade-recheio
         else {
+            $("#form-quantidade-recheio").hide();
             $("#tradicional-recheioA").hide();
             $("#tradicional-recheioB").hide();
             $('#tradicional-peso-casca').show();
@@ -68,12 +90,17 @@ function toggleFields() {
         $("#form-tradicional").hide();
         $("#form-tradicional-tipo").hide();
         $('#tradicional-formato').hide();
+
         $('#tradicional-peso-casca').hide();
         $('#tradicional-peso-recheado').hide();
         $('#tradicional-peso-colher').show();
+        $('#tradicional-recheioB').hide();
+        $("#tipoRecheioLabel").text("Escolha o Recheio");
+        $("#form-quantidade-recheio").hide();
+
     }
 
-    if (($("#tradicional-peso-casca-select").val() >1 || $("#tradicional-peso-recheado-select").val()>1)
+    if (( $("#tradicional-peso-casca-select").val() >1 || $("#tradicional-peso-recheado-select").val()>1)
          &&( $("#tipoOvo").val()==0) ) {
         $("#tradicional-formato").show();
     }
